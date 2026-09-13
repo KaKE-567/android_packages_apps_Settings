@@ -26,6 +26,7 @@
         android:key="os_firmware_version"
         android:title="@string/firmware_version"
         android:summary="@string/summary_placeholder"
+        android:layout="@layout/kake_pref_card_top"
         settings:enableCopying="true"
         settings:searchable="false"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.FirmwareVersionDetailPreferenceController"/>
@@ -35,6 +36,7 @@
         android:key="lineage_version"
         android:title="@*lineageos.platform:string/lineage_version"
         android:summary="@string/summary_placeholder"
+        android:layout="@layout/kake_pref_card_mid"
         settings:enableCopying="true"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.LineageVersionDetailPreferenceController"/>
 
@@ -43,6 +45,7 @@
         android:key="lineage_api_version"
         android:title="@*lineageos.platform:string/lineage_api_level"
         android:summary="@string/summary_placeholder"
+        android:layout="@layout/kake_pref_card_mid"
         android:selectable="false"
         settings:enableCopying="true"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.LineageApiVersionPreferenceController"/>
@@ -51,6 +54,7 @@
     <Preference
         android:key="security_key"
         android:title="@string/security_patch"
+        android:layout="@layout/kake_pref_card_mid"
         settings:enableCopying="true"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.SecurityPatchLevelPreferenceController"/>
 
@@ -58,25 +62,17 @@
     <Preference
         android:key="vendor_security_key"
         android:title="@*lineageos.platform:string/lineage_vendor_security_patch"
+        android:layout="@layout/kake_pref_card_mid"
         android:selectable="false"
         settings:enableCopying="true"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.LineageVendorSecurityPatchLevelPreferenceController"/>
-
-    <!-- Mainline module version -->
-    <!--
-    <Preference
-        android:key="module_version"
-        android:title="@string/module_version"
-        android:summary="@string/summary_placeholder"
-        settings:enableCopying="true"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.MainlineModuleVersionPreferenceController"/>
-    -->
 
     <!-- Baseband -->
     <Preference
         android:key="base_band"
         android:title="@string/baseband_version"
         android:summary="@string/summary_placeholder"
+        android:layout="@layout/kake_pref_card_mid"
         android:selectable="false"
         settings:enableCopying="true"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.BasebandVersionPreferenceController"/>
@@ -86,6 +82,7 @@
         android:key="kernel_version"
         android:title="@string/kernel_version"
         android:summary="@string/summary_placeholder"
+        android:layout="@layout/kake_pref_card_mid"
         android:selectable="false"
         settings:enableCopying="true"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.KernelVersionPreferenceController"/>
@@ -95,6 +92,7 @@
         android:key="os_build_date"
         android:title="@*lineageos.platform:string/build_date"
         android:summary="@string/summary_placeholder"
+        android:layout="@layout/kake_pref_card_mid"
         android:selectable="false"
         settings:enableCopying="true"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.LineageBuildDatePreferenceController"/>
@@ -104,6 +102,7 @@
         android:key="os_build_number"
         android:title="@string/build_number"
         android:summary="@string/summary_placeholder"
+        android:layout="@layout/kake_pref_card_bot"
         android:selectable="false"
         settings:enableCopying="true"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.SimpleBuildNumberPreferenceController"/>

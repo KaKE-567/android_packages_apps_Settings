@@ -271,15 +271,15 @@ public class HighlightablePreferenceGroupAdapter extends PreferenceGroupAdapter 
         } else if (isFirst) {
             bgRes = R.drawable.kake_pref_card_top;
             topMarginDp = 4;
-            bottomMarginDp = 2;
+            bottomMarginDp = 0;
         } else if (isLast) {
             bgRes = R.drawable.kake_pref_card_bot;
-            topMarginDp = 2;
+            topMarginDp = 0;
             bottomMarginDp = 8;
         } else {
             bgRes = R.drawable.kake_pref_card_mid;
-            topMarginDp = 2;
-            bottomMarginDp = 2;
+            topMarginDp = 0;
+            bottomMarginDp = 0;
         }
 
         final View view = holder.itemView;
@@ -307,9 +307,9 @@ public class HighlightablePreferenceGroupAdapter extends PreferenceGroupAdapter 
         }
 
         final int paddingH = (int) (16 * density + 0.5f);
-        final int paddingV = (int) (12 * density + 0.5f);
+        final int paddingV = (int) (10 * density + 0.5f);
         view.setPaddingRelative(paddingH, paddingV, paddingH, paddingV);
-        view.setMinimumHeight((int) (64 * density + 0.5f));
+        view.setMinimumHeight((int) (52 * density + 0.5f));
 
         // Format title text with sans-serif-medium
         final View titleView = holder.findViewById(android.R.id.title);
@@ -317,13 +317,27 @@ public class HighlightablePreferenceGroupAdapter extends PreferenceGroupAdapter 
             ((TextView) titleView).setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
         }
 
-        // Format icon size to 38dp
+        // Format or hide icon frame
+        final View iconFrame = holder.findViewById(android.R.id.icon_frame);
         final View iconView = holder.findViewById(android.R.id.icon);
-        if (iconView instanceof ImageView) {
-            final ImageView iv = (ImageView) iconView;
-            iv.setAdjustViewBounds(true);
-            iv.setMaxWidth((int) (38 * density + 0.5f));
-            iv.setMaxHeight((int) (38 * density + 0.5f));
+        if (pref.getIcon() == null) {
+            if (iconFrame != null) {
+                iconFrame.setVisibility(View.GONE);
+            }
+            if (iconView != null) {
+                iconView.setVisibility(View.GONE);
+            }
+        } else {
+            if (iconFrame != null) {
+                iconFrame.setVisibility(View.VISIBLE);
+            }
+            if (iconView instanceof ImageView) {
+                final ImageView iv = (ImageView) iconView;
+                iv.setVisibility(View.VISIBLE);
+                iv.setAdjustViewBounds(true);
+                iv.setMaxWidth((int) (38 * density + 0.5f));
+                iv.setMaxHeight((int) (38 * density + 0.5f));
+            }
         }
 
         // Add chevron for navigable preferences if widget_frame is empty
