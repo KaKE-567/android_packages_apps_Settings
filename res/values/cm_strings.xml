@@ -204,4 +204,8 @@
     <!-- Gaming Mode -->
     <string name="gaming_mode_title">Gaming Mode</string>
     <string name="gaming_mode_summary">App selector, mistouch prevention, auto DND, and K30 Ultra spoof</string>
+
+    <!-- Maintainer -->
+    <string name="device_maintainer_title">Maintainer</string>
+    <string name="device_maintainer_summary">@Xx_KaKe_xX</string>
 </resources>

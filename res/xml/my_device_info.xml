@@ -126,6 +126,15 @@
         android:fragment="com.android.settings.deviceinfo.firmwareversion.FirmwareVersionSettings"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.FirmwareVersionPreferenceController"/>
 
+    <!-- Maintainer -->
+    <Preference
+        android:key="device_maintainer_about"
+        android:order="43"
+        android:title="@string/device_maintainer_title"
+        android:summary="@string/device_maintainer_summary"
+        android:selectable="false"
+        settings:enableCopying="true"/>
+
     <!--IP address -->
     <Preference
         android:key="wifi_ip_address"

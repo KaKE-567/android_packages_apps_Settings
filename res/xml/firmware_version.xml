@@ -40,15 +40,14 @@
         settings:enableCopying="true"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.LineageVersionDetailPreferenceController"/>
 
-    <!-- Lineage API version -->
+    <!-- Maintainer -->
     <Preference
-        android:key="lineage_api_version"
-        android:title="@*lineageos.platform:string/lineage_api_level"
-        android:summary="@string/summary_placeholder"
+        android:key="device_maintainer"
+        android:title="@string/device_maintainer_title"
+        android:summary="@string/device_maintainer_summary"
         android:layout="@layout/kake_pref_card_mid"
         android:selectable="false"
-        settings:enableCopying="true"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.LineageApiVersionPreferenceController"/>
+        settings:enableCopying="true"/>
 
     <!-- Security patch -->
     <Preference
