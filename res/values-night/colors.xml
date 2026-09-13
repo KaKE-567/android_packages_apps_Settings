@@ -37,7 +37,14 @@
     <color name="palette_list_color_green">@color/palette_list_dark_mode_color_green</color>
     <color name="palette_list_color_cyan">@color/palette_list_dark_mode_color_cyan</color>
     <color name="palette_list_color_blue">@color/palette_list_dark_mode_color_blue</color>
-    <color name="palette_list_color_purple">@color/palette_list_dark_mode_color_purple</color>
     <color name="gestures_setting_background_color">@android:color/black</color>
+
+    <!-- KaKe Elements / Card Colors (Night) -->
+    <color name="kake_pref_card_color">#141416</color>
+    <color name="kake_pref_card_stroke">#232328</color>
+    <color name="kake_pref_card_ripple">#20FFFFFF</color>
+    <color name="kake_banner_bg_start">#1C1D24</color>
+    <color name="kake_banner_bg_end">#121215</color>
+
 </resources>
 

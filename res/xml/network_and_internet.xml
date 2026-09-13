@@ -36,6 +36,7 @@
         android:summary="@string/summary_placeholder"
         android:icon="@drawable/ic_settings_wireless"
         android:order="-30"
+        android:layout="@layout/kake_pref_card_top"
         settings:allowDividerAbove="true">
         <intent
             android:action="android.settings.WIFI_SETTINGS"
@@ -48,6 +49,7 @@
         android:summary="@string/summary_placeholder"
         android:icon="@drawable/ic_network_cell"
         android:order="-15"
+        android:layout="@layout/kake_pref_card_mid"
         settings:keywords="@string/keywords_more_mobile_networks"
         settings:userRestriction="no_config_mobile_networks"
         settings:useAdminDisabledSummary="true" />
@@ -58,6 +60,7 @@
         android:icon="@drawable/ic_airplanemode_active"
         android:disableDependentsState="true"
         android:order="-5"
+        android:layout="@layout/kake_pref_card_mid"
         settings:controller="com.android.settings.network.AirplaneModePreferenceController"
         settings:userRestriction="no_airplane_mode"/>
 
@@ -66,6 +69,8 @@
         android:title="@string/manage_mobile_plan_title"
         android:persistent="false"
         android:order="0"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:userRestriction="no_config_mobile_networks"
         settings:useAdminDisabledSummary="true" />
 
@@ -76,6 +81,8 @@
         android:icon="@drawable/ic_wifi_tethering"
         android:order="5"
         android:summary="@string/summary_placeholder"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:keywords="@string/keywords_hotspot_tethering"
         settings:userRestriction="no_config_tethering"
         settings:useAdminDisabledSummary="true" />
@@ -87,6 +94,7 @@
         android:icon="@drawable/ic_wifi_tethering"
         android:order="6"
         android:summary="@string/summary_placeholder"
+        android:layout="@layout/kake_pref_card_mid"
         settings:controller="com.android.settings.network.AllInOneTetherPreferenceController"
         settings:keywords="@string/keywords_hotspot_tethering"
         settings:userRestriction="no_config_tethering"
@@ -97,7 +105,9 @@
         android:title="@string/data_saver_title"
         android:icon="@drawable/ic_settings_data_usage"
         android:order="10"
-        android:fragment="com.android.settings.datausage.DataSaverSummary"/>
+        android:fragment="com.android.settings.datausage.DataSaverSummary"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"/>
 
     <com.android.settingslib.RestrictedPreference
         android:fragment="com.android.settings.vpn2.VpnSettings"
@@ -106,6 +116,8 @@
         android:icon="@drawable/ic_vpn_key"
         android:order="15"
         android:summary="@string/summary_placeholder"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:userRestriction="no_config_vpn"
         settings:useAdminDisabledSummary="true" />
 
@@ -116,7 +128,9 @@
         android:dialogTitle="@string/select_private_dns_configuration_dialog_title"
         android:dialogLayout="@layout/private_dns_mode_dialog"
         android:positiveButtonText="@string/save"
-        android:negativeButtonText="@android:string/cancel" />
+        android:negativeButtonText="@android:string/cancel"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"/>
 
     <Preference
         android:fragment="com.android.settings.network.AdaptiveConnectivitySettings"
@@ -124,5 +138,7 @@
         android:title="@string/adaptive_connectivity_title"
         android:summary="@string/summary_placeholder"
         android:order="25"
+        android:layout="@layout/kake_pref_card_bot"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.network.AdaptiveConnectivityPreferenceController"/>
 </PreferenceScreen>

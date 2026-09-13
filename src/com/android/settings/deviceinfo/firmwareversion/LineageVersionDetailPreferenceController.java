@@ -42,6 +42,7 @@ public class LineageVersionDetailPreferenceController extends BasePreferenceCont
     private static final int DELAY_TIMER_MILLIS = 500;
     private static final int ACTIVITY_TRIGGER_COUNT = 3;
 
+    private static final String KEY_VORTEX_VERSION_PROP = "ro.vortex.version";
     private static final String KEY_LINEAGE_VERSION_PROP = "ro.lineage.version";
 
     private static final String PLATLOGO_PACKAGE_NAME = "org.lineageos.lineageparts";
@@ -77,6 +78,10 @@ public class LineageVersionDetailPreferenceController extends BasePreferenceCont
 
     @Override
     public CharSequence getSummary() {
+        String vortexVersion = SystemProperties.get(KEY_VORTEX_VERSION_PROP, "");
+        if (!TextUtils.isEmpty(vortexVersion)) {
+            return vortexVersion;
+        }
         return SystemProperties.get(KEY_LINEAGE_VERSION_PROP,
                 mContext.getString(R.string.unknown));
     }

@@ -2,6 +2,8 @@
         xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
         package="com.android.settings"
         coreApp="true"
+        android:versionCode="100"
+        android:versionName="11"
         android:sharedUserId="android.uid.system">
 
     <original-package android:name="com.android.settings" />
@@ -106,6 +108,10 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.READ_DREAM_STATE" />
     <uses-permission android:name="android.permission.READ_DREAM_SUPPRESSION" />
+
+    <!-- Face Unlock -->
+    <uses-permission android:name="com.android.settings.FACE_UNLOCK"/>
+    <permission android:name="com.android.settings.FACE_UNLOCK" android:protectionLevel="signatureOrSystem"/>
 
     <application android:label="@string/settings_label"
             android:icon="@mipmap/ic_launcher"
@@ -465,6 +471,7 @@
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
                 android:value="com.android.settings.biometrics.face.FaceSettings" />
         </activity>
+
 
         <activity android:name="Settings$FingerprintSettingsActivity"
                   android:label="@string/security_settings_fingerprint_preference_title"
@@ -3450,6 +3457,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="settings"
                       android:host="com.android.settings.backup.transport" />
+            </intent-filter>
+        </activity>
+
+        <!-- Face unlock -->
+        <activity android:name="com.android.settings.custom.biometrics.face.FaceEnrollActivity"
+            android:permission="com.android.settings.FACE_UNLOCK"
+            android:theme="@style/Transparent">
+            <intent-filter android:priority="1">
+                <action android:name="com.android.settings.intent.action.FACE_ENROLL"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 

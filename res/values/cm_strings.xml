@@ -47,7 +47,7 @@
     <string name="berry_black_theme_summary">Pure black background for dark theme</string>
 
     <!-- Device Info screen. LineageOS legal. -->
-    <string name="lineagelicense_title">LineageOS legal</string>
+    <string name="lineagelicense_title">VortexOS legal</string>
 
     <!-- Double tap to sleep on status bar or lockscreen -->
     <string name="status_bar_double_tap_to_sleep_title">Tap to sleep</string>
@@ -183,4 +183,25 @@
 
     <!-- Warning message for the sd card setup -->
     <string name="storage_warning_internal">Warning: This option may not work properly or lead to data loss and is therefore not recommended!</string>
+
+    <!-- Face Unlock -->
+    <string name="security_settings_face_settings_footer_custom">Face unlock lets you unlock your device by looking at it. Keep in mind:\n\n1. Your device may unlock any time you look at it.\n2. Your device can be unlocked by someone else if they hold it in front of your face while your eyes are open.\n3. Your device may also be unlocked by someone who looks a lot like you, such as a child or identical sibling.</string>
+    <string name="security_settings_face_settings_remove_dialog_details_custom">Data recorded by face unlock will be permanently and securely deleted. After removal, you will need your PIN, pattern, or password to unlock your phone.</string>
+    <string name="security_settings_face_unlock_redo_face_scan_summary">Remove existing face scan and create a new scan</string>
+    <string name="security_settings_face_unlock_redo_face_scan_title">Redo face scan</string>
+    <string name="security_dashboard_summary_face_and_fingerprint">Screen lock, fingerprint, face unlock</string>
+    <string name="face_redo_confirm_btn">Redo</string>
+    <string name="face_redo_warning_msg">Do you want to remove the existing face scan and create a new one?</string>
+
+    <!-- Game props spoofing -->
+    <string name="game_props_title">Redmi K30 Ultra spoofing</string>
+    <string name="game_props_summary">Spoof device model as Redmi K30 Ultra (cezanne) in games to unlock 60 FPS Extreme graphics without stutter. Free Fire is excluded to prevent bans.</string>
+
+    <!-- KaKe Elements -->
+    <string name="kake_elements_title">KaKe Elements</string>
+    <string name="kake_elements_summary">Gaming mode, status bar icons, battery &amp; network traffic</string>
+
+    <!-- Gaming Mode -->
+    <string name="gaming_mode_title">Gaming Mode</string>
+    <string name="gaming_mode_summary">App selector, mistouch prevention, auto DND, and K30 Ultra spoof</string>
 </resources>

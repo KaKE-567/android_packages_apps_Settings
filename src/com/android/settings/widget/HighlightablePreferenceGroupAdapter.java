@@ -23,22 +23,33 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.VisibleForTesting;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.PreferenceGroupAdapter;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.PreferenceViewHolder;
+import androidx.preference.TwoStatePreference;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.settingslib.widget.LayoutPreference;
 
 public class HighlightablePreferenceGroupAdapter extends PreferenceGroupAdapter {
 
@@ -108,6 +119,7 @@ public class HighlightablePreferenceGroupAdapter extends PreferenceGroupAdapter 
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
+        applyCardStyle(holder, position);
         updateBackground(holder, position);
     }
 
@@ -175,9 +187,11 @@ public class HighlightablePreferenceGroupAdapter extends PreferenceGroupAdapter 
     }
 
     private void removeHighlightBackground(View v, boolean animate) {
+        final Integer cardBg = (Integer) v.getTag(R.id.tag_card_bg);
+        final int normalBg = (cardBg != null && cardBg != 0) ? cardBg : mNormalBackgroundRes;
         if (!animate) {
             v.setTag(R.id.preference_highlighted, false);
-            v.setBackgroundResource(mNormalBackgroundRes);
+            v.setBackgroundResource(normalBg);
             Log.d(TAG, "RemoveHighlight: No animation requested - setting normal background");
             return;
         }
@@ -188,7 +202,7 @@ public class HighlightablePreferenceGroupAdapter extends PreferenceGroupAdapter 
             return;
         }
         int colorFrom = mHighlightColor;
-        int colorTo = mNormalBackgroundRes;
+        int colorTo = normalBg;
 
         v.setTag(R.id.preference_highlighted, false);
         final ValueAnimator colorAnimation = ValueAnimator.ofObject(
@@ -199,12 +213,162 @@ public class HighlightablePreferenceGroupAdapter extends PreferenceGroupAdapter 
         colorAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                // Animation complete - the background is now white. Change to mNormalBackgroundRes
-                // so it is white and has ripple on touch.
-                v.setBackgroundResource(mNormalBackgroundRes);
+                // Animation complete - restore card background
+                v.setBackgroundResource(normalBg);
             }
         });
         colorAnimation.start();
         Log.d(TAG, "Starting fade out animation");
+    }
+
+    private void applyCardStyle(PreferenceViewHolder holder, int position) {
+        if (position < 0 || position >= getItemCount()) {
+            return;
+        }
+        final Preference pref = getItem(position);
+        if (pref == null) {
+            return;
+        }
+
+        // Skip category headers, footers, and special layout preferences
+        if (!isCardEligible(pref)) {
+            return;
+        }
+
+        // If this preference already uses our custom kake card XML layout, skip to avoid double styling
+        final int layoutRes = pref.getLayoutResource();
+        if (layoutRes == R.layout.kake_pref_card_top
+                || layoutRes == R.layout.kake_pref_card_mid
+                || layoutRes == R.layout.kake_pref_card_bot
+                || layoutRes == R.layout.kake_pref_card_sin) {
+            return;
+        }
+
+        boolean isFirst = true;
+        if (position > 0) {
+            final Preference prev = getItem(position - 1);
+            if (isCardEligible(prev)) {
+                isFirst = false;
+            }
+        }
+
+        boolean isLast = true;
+        if (position < getItemCount() - 1) {
+            final Preference next = getItem(position + 1);
+            if (isCardEligible(next)) {
+                isLast = false;
+            }
+        }
+
+        final int bgRes;
+        final int topMarginDp;
+        final int bottomMarginDp;
+
+        if (isFirst && isLast) {
+            bgRes = R.drawable.kake_pref_card_sin;
+            topMarginDp = 4;
+            bottomMarginDp = 8;
+        } else if (isFirst) {
+            bgRes = R.drawable.kake_pref_card_top;
+            topMarginDp = 4;
+            bottomMarginDp = 2;
+        } else if (isLast) {
+            bgRes = R.drawable.kake_pref_card_bot;
+            topMarginDp = 2;
+            bottomMarginDp = 8;
+        } else {
+            bgRes = R.drawable.kake_pref_card_mid;
+            topMarginDp = 2;
+            bottomMarginDp = 2;
+        }
+
+        final View view = holder.itemView;
+        view.setTag(R.id.tag_card_bg, bgRes);
+
+        // Only set background if not currently highlighted by search animation
+        if (!Boolean.TRUE.equals(view.getTag(R.id.preference_highlighted))) {
+            view.setBackgroundResource(bgRes);
+        }
+
+        final Context context = view.getContext();
+        final float density = context.getResources().getDisplayMetrics().density;
+        final int marginH = (int) (16 * density + 0.5f);
+        final int topMargin = (int) (topMarginDp * density + 0.5f);
+        final int bottomMargin = (int) (bottomMarginDp * density + 0.5f);
+
+        final ViewGroup.LayoutParams vlp = view.getLayoutParams();
+        if (vlp instanceof ViewGroup.MarginLayoutParams) {
+            final ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) vlp;
+            mlp.setMarginStart(marginH);
+            mlp.setMarginEnd(marginH);
+            mlp.topMargin = topMargin;
+            mlp.bottomMargin = bottomMargin;
+            view.setLayoutParams(mlp);
+        }
+
+        final int paddingH = (int) (16 * density + 0.5f);
+        final int paddingV = (int) (12 * density + 0.5f);
+        view.setPaddingRelative(paddingH, paddingV, paddingH, paddingV);
+        view.setMinimumHeight((int) (64 * density + 0.5f));
+
+        // Format title text with sans-serif-medium
+        final View titleView = holder.findViewById(android.R.id.title);
+        if (titleView instanceof TextView) {
+            ((TextView) titleView).setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+        }
+
+        // Format icon size to 38dp
+        final View iconView = holder.findViewById(android.R.id.icon);
+        if (iconView instanceof ImageView) {
+            final ImageView iv = (ImageView) iconView;
+            iv.setAdjustViewBounds(true);
+            iv.setMaxWidth((int) (38 * density + 0.5f));
+            iv.setMaxHeight((int) (38 * density + 0.5f));
+        }
+
+        // Add chevron for navigable preferences if widget_frame is empty
+        final ViewGroup widgetFrame = (ViewGroup) holder.findViewById(android.R.id.widget_frame);
+        if (widgetFrame != null) {
+            final View existingChevron = widgetFrame.findViewWithTag("kake_chevron");
+            final boolean shouldHaveChevron = isNavigable(pref);
+            if (shouldHaveChevron && widgetFrame.getChildCount() == 0) {
+                final ImageView chevron = new ImageView(context);
+                chevron.setTag("kake_chevron");
+                chevron.setImageResource(R.drawable.ic_chevron_right_24dp);
+                final TypedValue tv = new TypedValue();
+                context.getTheme().resolveAttribute(android.R.attr.textColorSecondary, tv, true);
+                chevron.setImageTintList(ColorStateList.valueOf(tv.data));
+                final int chevronSize = (int) (20 * density + 0.5f);
+                final LinearLayout.LayoutParams clp = new LinearLayout.LayoutParams(chevronSize, chevronSize);
+                clp.gravity = Gravity.CENTER_VERTICAL;
+                chevron.setLayoutParams(clp);
+                widgetFrame.addView(chevron);
+                widgetFrame.setVisibility(View.VISIBLE);
+            } else if (!shouldHaveChevron && existingChevron != null) {
+                widgetFrame.removeView(existingChevron);
+            }
+        }
+    }
+
+    private boolean isCardEligible(Preference pref) {
+        if (pref == null) {
+            return false;
+        }
+        if (pref instanceof PreferenceCategory
+                || pref instanceof LayoutPreference
+                || pref.getClass().getName().contains("Footer")
+                || (!pref.isSelectable() && TextUtils.isEmpty(pref.getTitle()))) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isNavigable(Preference pref) {
+        if (pref instanceof TwoStatePreference) {
+            return false;
+        }
+        return pref.getFragment() != null
+                || pref.getIntent() != null
+                || pref.getOnPreferenceClickListener() != null;
     }
 }

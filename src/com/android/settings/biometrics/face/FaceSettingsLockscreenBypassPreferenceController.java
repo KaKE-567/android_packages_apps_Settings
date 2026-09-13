@@ -86,7 +86,18 @@ public class FaceSettingsLockscreenBypassPreferenceController
             return UNSUPPORTED_ON_DEVICE;
         }
 
-        if (mFaceManager != null && mFaceManager.isHardwareDetected()) {
+        boolean faceAuthOnlyOnSecurityView = false;
+        try {
+            int resId = mContext.getResources().getIdentifier(
+                    "config_faceAuthOnlyOnSecurityView", "bool", "android");
+            if (resId > 0) {
+                faceAuthOnlyOnSecurityView = mContext.getResources().getBoolean(resId);
+            }
+        } catch (Exception ignored) {
+        }
+
+        if (mFaceManager != null && mFaceManager.isHardwareDetected() &&
+                !faceAuthOnlyOnSecurityView) {
             return mFaceManager.hasEnrolledTemplates(getUserId())
                     ? AVAILABLE : DISABLED_DEPENDENT_SETTING;
         } else {

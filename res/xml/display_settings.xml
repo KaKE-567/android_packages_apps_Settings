@@ -185,6 +185,13 @@
         android:summary="@string/status_bar_double_tap_to_sleep_summary"
         android:defaultValue="true" />
 
+    <!-- Unlock higher FPS in games -->
+    <lineageos.preference.LineageSystemSettingSwitchPreference
+        android:key="game_props_enabled"
+        android:title="@string/game_props_title"
+        android:summary="@string/game_props_summary"
+        android:defaultValue="true" />
+
     <lineageos.preference.LineageGlobalSettingSwitchPreference
         android:key="wake_when_plugged_or_unplugged"
         android:title="@string/wake_when_plugged_or_unplugged_title"

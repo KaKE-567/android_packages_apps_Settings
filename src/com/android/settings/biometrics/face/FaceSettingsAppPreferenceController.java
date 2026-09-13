@@ -25,6 +25,7 @@ import android.provider.Settings;
 import androidx.preference.Preference;
 
 import com.android.settings.Utils;
+import com.android.settings.custom.biometrics.FaceUtils;
 
 /**
  * Preference controller for Face settings page controlling the ability to use
@@ -36,7 +37,7 @@ public class FaceSettingsAppPreferenceController extends FaceSettingsPreferenceC
 
     private static final int ON = 1;
     private static final int OFF = 0;
-    private static final int DEFAULT = ON;  // face unlock is enabled for BiometricPrompt by default
+    private static final int DEFAULT = OFF;
 
     private FaceManager mFaceManager;
 
@@ -51,17 +52,14 @@ public class FaceSettingsAppPreferenceController extends FaceSettingsPreferenceC
 
     @Override
     public boolean isChecked() {
-        if (!FaceSettings.isFaceHardwareDetected(mContext)) {
-            return false;
-        }
-        return Settings.Secure.getIntForUser(
-                mContext.getContentResolver(), FACE_UNLOCK_APP_ENABLED, DEFAULT, getUserId()) == ON;
+        return Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                FACE_UNLOCK_APP_ENABLED, DEFAULT, getUserId()) == ON;
     }
 
     @Override
     public boolean setChecked(boolean isChecked) {
-        return Settings.Secure.putIntForUser(mContext.getContentResolver(), FACE_UNLOCK_APP_ENABLED,
-                isChecked ? ON : OFF, getUserId());
+        return Settings.Secure.putIntForUser(mContext.getContentResolver(),
+                FACE_UNLOCK_APP_ENABLED, isChecked ? ON : OFF, getUserId());
     }
 
     @Override
@@ -78,6 +76,10 @@ public class FaceSettingsAppPreferenceController extends FaceSettingsPreferenceC
 
     @Override
     public int getAvailabilityStatus() {
+        if (FaceUtils.isFaceUnlockSupported()){
+            return UNSUPPORTED_ON_DEVICE;
+        }
+
         if(mFaceManager == null){
             return AVAILABLE_UNSEARCHABLE;
         }

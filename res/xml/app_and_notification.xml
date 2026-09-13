@@ -28,6 +28,8 @@
         android:title="@string/applications_settings"
         android:order="-999"
         android:fragment="com.android.settings.applications.manageapplications.ManageApplications"
+        android:layout="@layout/kake_pref_card_sin"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.applications.AllAppsInfoPreferenceController"
         settings:keywords="@string/keywords_applications_settings"/>
 
@@ -50,15 +52,18 @@
         android:key="conversations"
         android:title="@string/conversations_category_title"
         android:order="-550"
+        android:layout="@layout/kake_pref_card_top"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.notification.ConversationListSummaryPreferenceController"
-        android:fragment="com.android.settings.notification.app.ConversationListSettings"
-    />
+        android:fragment="com.android.settings.notification.app.ConversationListSettings"/>
 
     <Preference
         android:key="configure_notification_settings"
         android:title="@string/configure_notification_settings"
         android:summary="@string/notification_screen_summary"
         android:order="-440"
+        android:layout="@layout/kake_pref_card_bot"
+        android:widgetLayout="@layout/kake_widget_chevron"
         android:fragment="com.android.settings.notification.ConfigureNotificationSettings"/>
 
     <!-- Notifications (appears before manage_perms), default apps (appears after) -->
@@ -70,6 +75,8 @@
         android:key="default_apps"
         android:title="@string/app_default_dashboard_title"
         android:order="11"
+        android:layout="@layout/kake_pref_card_top"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.applications.DefaultAppsPreferenceController">
         <intent android:action="android.settings.MANAGE_DEFAULT_APPS_SETTINGS"/>
     </Preference>
@@ -79,6 +86,8 @@
         android:title="@string/app_permissions"
         android:summary="@string/runtime_permissions_summary_control_app_access"
         android:order="12"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:keywords="@string/keywords_app_permissions">
         <intent android:action="android.intent.action.MANAGE_PERMISSIONS"/>
     </Preference>
@@ -87,6 +96,8 @@
         android:key="app_and_notif_cell_broadcast_settings"
         android:title="@string/cell_broadcast_settings"
         android:order="15"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:useAdminDisabledSummary="true">
         <intent
             android:action="android.intent.action.MAIN"
@@ -99,6 +110,8 @@
         android:fragment="com.android.settings.applications.specialaccess.SpecialAccessSettings"
         android:title="@string/special_access"
         android:order="20"
+        android:layout="@layout/kake_pref_card_bot"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.applications.SpecialAppAccessPreferenceController"/>
 
 </PreferenceScreen>

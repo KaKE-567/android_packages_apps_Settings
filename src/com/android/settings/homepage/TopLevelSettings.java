@@ -26,6 +26,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceScreen;
+import androidx.preference.TwoStatePreference;
 
 import com.android.settings.R;
 import com.android.settings.core.SubSettingLauncher;
@@ -33,6 +35,8 @@ import com.android.settings.dashboard.DashboardFragment;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.support.SupportPreferenceController;
 import com.android.settingslib.core.instrumentation.Instrumentable;
+import com.android.settingslib.drawer.ProviderTile;
+import com.android.settingslib.drawer.Tile;
 import com.android.settingslib.search.SearchIndexable;
 
 @SearchIndexable(forTarget = MOBILE)
@@ -97,6 +101,49 @@ public class TopLevelSettings extends DashboardFragment implements
     protected boolean shouldForceRoundedIcon() {
         return getContext().getResources()
                 .getBoolean(R.bool.config_force_rounded_icon_TopLevelSettings);
+    }
+
+    @Override
+    protected Preference createPreference(Tile tile) {
+        final Preference pref = super.createPreference(tile);
+        pref.setLayoutResource(R.layout.kake_pref_card_mid);
+        if (!tile.hasSwitch() && !(tile instanceof ProviderTile)) {
+            pref.setWidgetLayoutResource(R.layout.kake_widget_chevron);
+        }
+        return pref;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        styleDynamicPreferences();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        styleDynamicPreferences();
+    }
+
+    private void styleDynamicPreferences() {
+        final PreferenceScreen screen = getPreferenceScreen();
+        if (screen == null) {
+            return;
+        }
+        final int count = screen.getPreferenceCount();
+        for (int i = 0; i < count; i++) {
+            final Preference p = screen.getPreference(i);
+            final int res = p.getLayoutResource();
+            if (res != R.layout.kake_pref_card_top
+                    && res != R.layout.kake_pref_card_mid
+                    && res != R.layout.kake_pref_card_bot
+                    && res != R.layout.kake_pref_card_sin) {
+                p.setLayoutResource(R.layout.kake_pref_card_mid);
+                if (!(p instanceof TwoStatePreference)) {
+                    p.setWidgetLayoutResource(R.layout.kake_widget_chevron);
+                }
+            }
+        }
     }
 
     public static final BaseSearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =

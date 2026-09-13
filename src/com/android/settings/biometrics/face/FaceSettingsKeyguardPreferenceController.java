@@ -25,6 +25,7 @@ import android.provider.Settings;
 import androidx.preference.Preference;
 
 import com.android.settings.Utils;
+import com.android.settings.custom.biometrics.FaceUtils;
 import com.android.settingslib.RestrictedLockUtils.EnforcedAdmin;
 import com.android.settingslib.RestrictedSwitchPreference;
 
@@ -70,7 +71,7 @@ public class FaceSettingsKeyguardPreferenceController extends FaceSettingsPrefer
 
     @Override
     public int getAvailabilityStatus() {
-        return AVAILABLE;
+        return FaceUtils.isFaceUnlockSupported() ? UNSUPPORTED_ON_DEVICE : AVAILABLE;
     }
 
     @Override

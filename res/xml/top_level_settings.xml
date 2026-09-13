@@ -20,6 +20,7 @@
     xmlns:settings="http://schemas.android.com/apk/res-auto"
     android:key="top_level_settings">
 
+    <!-- Group 1: Connectivity -->
     <Preference
         android:key="top_level_network"
         android:title="@string/network_dashboard_title"
@@ -27,6 +28,8 @@
         android:icon="@drawable/ic_homepage_network"
         android:order="-120"
         android:fragment="com.android.settings.network.NetworkDashboardFragment"
+        android:layout="@layout/kake_pref_card_top"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.network.TopLevelNetworkEntryPreferenceController"/>
 
     <Preference
@@ -36,15 +39,20 @@
         android:icon="@drawable/ic_homepage_connected_device"
         android:order="-110"
         android:fragment="com.android.settings.connecteddevice.ConnectedDeviceDashboardFragment"
+        android:layout="@layout/kake_pref_card_bot"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.connecteddevice.TopLevelConnectedDevicesPreferenceController"/>
 
+    <!-- Group 2: Core Experience -->
     <Preference
         android:key="top_level_apps_and_notifs"
         android:title="@string/app_and_notification_dashboard_title"
         android:summary="@string/app_and_notification_dashboard_summary"
         android:icon="@drawable/ic_homepage_apps"
         android:order="-100"
-        android:fragment="com.android.settings.applications.AppAndNotificationDashboardFragment"/>
+        android:fragment="com.android.settings.applications.AppAndNotificationDashboardFragment"
+        android:layout="@layout/kake_pref_card_top"
+        android:widgetLayout="@layout/kake_widget_chevron"/>
 
     <Preference
         android:key="top_level_battery"
@@ -53,6 +61,8 @@
         android:icon="@drawable/ic_homepage_battery"
         android:fragment="com.android.settings.fuelgauge.PowerUsageSummary"
         android:order="-90"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.fuelgauge.TopLevelBatteryPreferenceController"/>
 
     <Preference
@@ -62,15 +72,35 @@
         android:icon="@drawable/ic_homepage_display"
         android:order="-80"
         android:fragment="com.android.settings.DisplaySettings"
+        android:layout="@layout/kake_pref_card_bot"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.display.TopLevelDisplayPreferenceController"/>
 
+    <!-- Group 3: KaKe Elements (Standalone Hero Card) -->
+    <Preference
+        android:key="top_level_kake_elements"
+        android:title="@string/kake_elements_title"
+        android:summary="@string/kake_elements_summary"
+        android:icon="@drawable/ic_homepage_kake_elements"
+        android:order="-75"
+        android:layout="@layout/kake_pref_card_sin"
+        android:widgetLayout="@layout/kake_widget_chevron">
+        <intent
+            android:action="org.lineageos.lineageparts.KAKE_ELEMENTS"
+            android:targetPackage="org.lineageos.lineageparts"
+            android:targetClass="org.lineageos.lineageparts.kake.KakeElementsSettings" />
+    </Preference>
+
+    <!-- Group 4: Sound & Storage -->
     <Preference
         android:key="top_level_sound"
         android:title="@string/sound_settings"
         android:summary="@string/sound_dashboard_summary"
         android:icon="@drawable/ic_homepage_sound"
         android:order="-70"
-        android:fragment="com.android.settings.notification.SoundSettings"/>
+        android:fragment="com.android.settings.notification.SoundSettings"
+        android:layout="@layout/kake_pref_card_top"
+        android:widgetLayout="@layout/kake_widget_chevron"/>
 
     <Preference
         android:key="top_level_storage"
@@ -79,15 +109,20 @@
         android:icon="@drawable/ic_homepage_storage"
         android:order="-60"
         android:fragment="com.android.settings.deviceinfo.StorageSettings"
+        android:layout="@layout/kake_pref_card_bot"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.deviceinfo.TopLevelStoragePreferenceController"/>
 
+    <!-- Group 5: Privacy, Location, Security & Accounts -->
     <Preference
         android:key="top_level_privacy"
         android:title="@string/privacy_dashboard_title"
         android:summary="@string/privacy_dashboard_summary"
         android:icon="@drawable/ic_homepage_privacy"
         android:order="-55"
-        android:fragment="com.android.settings.privacy.PrivacyDashboardFragment"/>
+        android:fragment="com.android.settings.privacy.PrivacyDashboardFragment"
+        android:layout="@layout/kake_pref_card_top"
+        android:widgetLayout="@layout/kake_widget_chevron"/>
 
     <Preference
         android:key="top_level_location"
@@ -96,6 +131,8 @@
         android:icon="@drawable/ic_homepage_location"
         android:order="-50"
         android:fragment="com.android.settings.location.LocationSettings"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.location.TopLevelLocationPreferenceController"/>
 
     <Preference
@@ -105,6 +142,8 @@
         android:icon="@drawable/ic_homepage_security"
         android:order="-40"
         android:fragment="com.android.settings.security.SecuritySettings"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.security.TopLevelSecurityEntryPreferenceController"/>
 
     <Preference
@@ -114,8 +153,11 @@
         android:icon="@drawable/ic_homepage_accounts"
         android:order="-30"
         android:fragment="com.android.settings.accounts.AccountDashboardFragment"
+        android:layout="@layout/kake_pref_card_bot"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.accounts.TopLevelAccountEntryPreferenceController"/>
 
+    <!-- Group 6: Accessibility, System & About -->
     <Preference
         android:key="top_level_accessibility"
         android:title="@string/accessibility_settings"
@@ -123,6 +165,8 @@
         android:icon="@drawable/ic_homepage_accessibility"
         android:order="-20"
         android:fragment="com.android.settings.accessibility.AccessibilitySettings"
+        android:layout="@layout/kake_pref_card_top"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.accessibility.TopLevelAccessibilityPreferenceController"/>
 
     <Preference
@@ -131,7 +175,9 @@
         android:summary="@string/system_dashboard_summary"
         android:icon="@drawable/ic_homepage_system_dashboard"
         android:order="10"
-        android:fragment="com.android.settings.system.SystemDashboardFragment"/>
+        android:fragment="com.android.settings.system.SystemDashboardFragment"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"/>
 
     <Preference
         android:key="top_level_about_device"
@@ -140,14 +186,19 @@
         android:icon="@drawable/ic_homepage_about"
         android:order="20"
         android:fragment="com.android.settings.deviceinfo.aboutphone.MyDeviceInfoFragment"
+        android:layout="@layout/kake_pref_card_bot"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.deviceinfo.aboutphone.TopLevelAboutDevicePreferenceController"/>
 
+    <!-- Group 7: Support -->
     <Preference
         android:key="top_level_support"
         android:summary="@string/support_summary"
         android:title="@string/page_tab_title_support"
         android:icon="@drawable/ic_homepage_support"
         android:order="100"
+        android:layout="@layout/kake_pref_card_sin"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.support.SupportPreferenceController"/>
 
 </PreferenceScreen>

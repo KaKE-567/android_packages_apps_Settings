@@ -18,6 +18,7 @@ package com.android.settings.gestures;
 
 import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_2BUTTON;
 import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL;
+import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL_OVERLAY;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -85,7 +86,10 @@ public class SystemNavigationPreferenceController extends BasePreferenceControll
                 .setPackage(recentsComponentName.getPackageName());
         if (context.getPackageManager().resolveService(quickStepIntent,
                 PackageManager.MATCH_SYSTEM_ONLY) == null) {
-            return false;
+            if (context.getPackageManager().resolveService(quickStepIntent, 0) == null
+                    && !isOverlayPackageAvailable(context, NAV_BAR_MODE_GESTURAL_OVERLAY)) {
+                return false;
+            }
         }
 
         return true;

@@ -38,46 +38,58 @@
         android:fragment="com.android.settings.fuelgauge.batterysaver.BatterySaverSettings"
         android:key="battery_saver_summary"
         android:title="@string/battery_saver"
+        android:layout="@layout/kake_pref_card_top"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.fuelgauge.BatterySaverController" />
 
     <Preference
         android:fragment="com.android.settings.fuelgauge.SmartBatterySettings"
         android:key="smart_battery_manager"
         android:title="@string/smart_battery_manager_title"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"
         settings:controller="com.android.settings.fuelgauge.batterytip.BatteryManagerPreferenceController" />
 
     <!-- Battery light -->
     <org.lineageos.internal.lineageparts.LineagePartsPreference
         android:key="battery_lights"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"
         lineage:requiresConfig="@*lineageos.platform:integer/config_deviceLightCapabilities"
         lineage:requiresConfigMask="64" />
 
     <!-- Custom perf profiles settings -->
     <org.lineageos.internal.lineageparts.LineagePartsPreference
         android:key="perf_profile_settings"
+        android:layout="@layout/kake_pref_card_mid"
+        android:widgetLayout="@layout/kake_widget_chevron"
         lineage:replacesKey="battery_saver_summary" />
 
     <SwitchPreference
         android:key="battery_percentage"
         android:title="@string/battery_percentage"
         android:summary="@string/battery_percentage_description"
+        android:layout="@layout/kake_pref_card_mid"
         settings:controller="com.android.settings.display.BatteryPercentagePreferenceController" />
 
     <SwitchPreference
         android:key="fast_charging"
         android:title="@string/fast_charging_title"
         android:summary="@string/fast_charging_summary"
+        android:layout="@layout/kake_pref_card_bot"
         settings:controller="com.android.settings.fuelgauge.FastChargingPreferenceController"/>
 
     <com.android.settings.fuelgauge.PowerGaugePreference
         android:key="last_full_charge"
         android:title="@string/battery_last_full_charge"
         android:selectable="false"
+        android:layout="@layout/kake_pref_card_top"
         settings:allowDividerAbove="true" />
 
     <com.android.settings.fuelgauge.PowerGaugePreference
         android:key="screen_usage"
         android:title="@string/device_screen_usage"
+        android:layout="@layout/kake_pref_card_bot"
         android:selectable="false" />
 
     <com.android.settingslib.widget.FooterPreference

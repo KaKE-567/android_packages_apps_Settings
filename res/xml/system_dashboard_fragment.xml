@@ -45,6 +45,7 @@
         android:fragment="com.android.settings.datetime.DateTimeSettings"
         settings:controller="com.android.settings.datetime.DateTimePreferenceController"/>
 
+
     <Preference
         android:key="reset_dashboard"
         android:title="@string/reset_dashboard_title"
